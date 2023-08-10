@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Suggestion Example</title>
+    <style>
+      #searchInput {
+        width: 300px;
+        padding: 10px;
+      }
+
+      #suggestions {
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .suggestion {
+        padding: 5px;
+        cursor: pointer;
+      }
+
+      .suggestion:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Search Suggestion Example</h1>
+    <input type="text" id="searchInput" placeholder="Search..." />
+    <div id="suggestions"></div>
+
+    <script>
+      const suggestions = [
+        "apple",
+        "applenex",
+        "applenexanzzle",
+        "banana",
+        "cherry",
+        "date",
+        "elderberry",
+        "fig",
+        "grape",
+        "honeydew",
+        "kiwi",
+        "lemon"
+      ];
+
+      const searchInput = document.getElementById("searchInput");
+      const suggestionsContainer = document.getElementById("suggestions");
+
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase();
+        const filteredSuggestions = suggestions.filter((suggestion) =>
+          suggestion.toLowerCase().startsWith(query)
+        );
+
+        suggestionsContainer.innerHTML = "";
+
+        filteredSuggestions.forEach((suggestion) => {
+          const suggestionElement = document.createElement("div");
+          suggestionElement.className = "suggestion";
+          suggestionElement.textContent = suggestion;
+          suggestionElement.addEventListener("click", () => {
+            searchInput.value = suggestion;
+            suggestionsContainer.innerHTML = "";
+          });
+          suggestionsContainer.appendChild(suggestionElement);
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!suggestionsContainer.contains(event.target)) {
+          suggestionsContainer.innerHTML = "";
+        }
+      });
+    </script>
+  </body>
+</html>
